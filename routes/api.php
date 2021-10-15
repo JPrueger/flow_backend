@@ -20,3 +20,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/todos', [App\Http\Controllers\TodosController::class, 'index']);
 Route::post('/todos', [App\Http\Controllers\TodosController::class, 'store']);
+
+
+/*
+|--------------------------------------------------------------------------
+| User
+|--------------------------------------------------------------------------
+*/
+
+Route::post('user/login', [AuthController::class, 'login']);
