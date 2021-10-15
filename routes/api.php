@@ -29,3 +29,4 @@ Route::post('/todos', [App\Http\Controllers\TodosController::class, 'store']);
 */
 
 Route::post('user/login', [AuthController::class, 'login']);
+Route::post('user/registration', [AuthController::class, 'registration']);

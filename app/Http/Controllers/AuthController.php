@@ -28,8 +28,26 @@ class AuthController extends Controller
         } 
 
         throw ValidateException::withMessage([
-            'email' => ['Incorrect Email or Password!']
+            'email' => ['Wrong Email or Password!']
         ]);       
+    }
+
+    public function registration(Request $request) {
+
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:4',
+            'character_name' => 'required'
+        ]);
+
+        $user = new User();
+        $user->username = $request->get('username');
+        $user->email = $request->get('email');
+        $user->password = Hash::make($request->get('password'));
+
+        return response()->json($user);
+
     }
 
     
