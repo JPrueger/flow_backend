@@ -22,4 +22,7 @@ Route::get('/todos', [App\Http\Controllers\TodosController::class, 'index']);
 Route::post('/todos', [App\Http\Controllers\TodosController::class, 'store']);
 
 // register user
-Route::post('user/register', [App\Http\Controllers\AuthController::class, 'register'])->middleware('cors');;
+Route::post('user/register', [App\Http\Controllers\AuthController::class, 'register'])->middleware('cors');
+
+// login user
+Route::post('user/login', [AuthController::class, 'login']);
