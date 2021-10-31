@@ -10,6 +10,28 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($request->only('email', 'password'))) {
+
+            $tokenObj = Auth::user()->createToken('auth');
+
+            return response()->json([
+                'token' => $tokenObj->plainTextToken,
+                'user' => Auth::user(),
+            ]);
+        }
+
+        throw ValidationException::withMessages([
+            'email' => ['Email or Password are incorect.']
+        ]);
+    }
+    
     public function register(Request $request)
     {
         $this->validate($request, [
