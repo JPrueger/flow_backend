@@ -25,4 +25,5 @@ Route::post('/todos', [App\Http\Controllers\TodosController::class, 'store']);
 Route::post('user/register', [App\Http\Controllers\AuthController::class, 'register'])->middleware('cors');
 
 // login user
-Route::post('user/login', [AuthController::class, 'login']);
+Route::post('user/login', [App\Http\Controllers\AuthController::class, 'login'])->middleware('cors');
+
