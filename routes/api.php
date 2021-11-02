@@ -27,3 +27,5 @@ Route::post('user/register', [App\Http\Controllers\AuthController::class, 'regis
 // login user
 Route::post('user/login', [App\Http\Controllers\AuthController::class, 'login'])->middleware('cors');
 
+// store Project
+Route::post('/add-project/create', [App\Http\Controllers\ProjectController::class, 'store'])->middleware('cors');
