@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -24,6 +25,19 @@ class ProjectController extends Controller
      */
     public function create()
     {
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sort(Request $request)
+    {
+        foreach ($request->all() as $index => $id) {
+            Task::where("id", $id)->update(["index" => $index]);
+        }
+        return response()->status(200);
     }
     
     /**
