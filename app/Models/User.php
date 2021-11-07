@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'character_id',
+        'storypoints',
     ];
 
     /**
@@ -41,4 +43,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function character() {
+        return $this->belongsTo(Character::class);
+    }
+
+    public function task() {
+        return $this->hasMany(Task::class);
+    }
 }
