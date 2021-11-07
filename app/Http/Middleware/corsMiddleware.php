@@ -2,7 +2,7 @@
     namespace App\Http\Middleware;
     use Closure;
     
-    class corsMiddleware {
+    class CorsMiddleware {
         /**
         * @param $request
         * @param Closure $next
