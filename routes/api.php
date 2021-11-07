@@ -32,3 +32,6 @@ Route::post('/add-project/create', [App\Http\Controllers\ProjectController::clas
 
 // sorting tasks
 Route::post('/sort-task', [App\Http\Controllers\ProjectController::class, 'sort'])->middleware('cors');
+
+// get all tasks
+Route::get('/tasks/index/', [App\Http\Controllers\TaskController::class, 'index']);
