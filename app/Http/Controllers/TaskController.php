@@ -37,7 +37,22 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required',
+            'storypoints' => 'required',
+            'status' => 'required',
+        ]);
+
+        $Task = new Task();
+        $Task->title = $request->get('title');
+        $Task->description = $request->get('description');
+        $Task->storypoints = $request->get('storypoints');
+        $Task->status = $request->get('status');
+        $Task->save();
+
+        // return newly created user data
+        return response()->json($Task);
     }
 
     /**
