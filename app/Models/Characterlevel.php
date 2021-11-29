@@ -9,5 +9,5 @@ class Characterlevel extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type_id', 'points_upgrade', 'video_state', 'video_upgrade'];
+    protected $fillable = ['points_upgrade', 'video_state', 'video_upgrade'];
 }
