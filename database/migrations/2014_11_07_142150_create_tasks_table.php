@@ -20,12 +20,12 @@ class CreateTasksTable extends Migration
             $table->string('title'); 
             $table->string('description'); 
 
-            $table->unsignedBigInteger('assigne_id');
-            $table->foreign('assigne_id')->references('id')->on('users');
+            $table->unsignedBigInteger('assigne_id')->nullable(); 
+            $table->foreign('assigne_id')->references('id')->on('users')->nullable();
 
             $table->integer('storypoints');
             $table->string('status');
-            $table->integer('sort_index');
+            $table->integer('sort_index')->nullable();
         });
     }
 

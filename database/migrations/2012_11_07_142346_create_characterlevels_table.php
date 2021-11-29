@@ -16,7 +16,6 @@ class CreateCharacterlevelsTable extends Migration
         Schema::create('characterlevels', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('type_id')->nullable();
             $table->integer('points_upgrade');
             $table->text('video_state');
             $table->text('video_upgrade');
