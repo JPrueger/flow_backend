@@ -27,16 +27,8 @@ class CharacterFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'current_storypoints' => $this->faker->numberBetween(0, 100),
-            'charactertype_id' => function () {
-                return Charactertype::factory()->create()->id;
-            },
-            'characterlevel_id' => function () {
-                return Characterlevel::factory()->create()->id;
-            },
-            // 'user_id' => function () {
-            //     return User::factory()->create()->id;
-            // },
-            // 'owner_id' => $this->faker(User::class)->create()->id
+            'charactertype_id' => Charactertype::all()->random()->id,
+            'characterlevel_id' => Characterlevel::all()->random()->id,
         ];
     }
 }

@@ -30,7 +30,7 @@ class TaskFactory extends Factory
             'title' => $finalTitle,
             'description' => $this->faker->text(),
             'storypoints' => $this->faker->numberBetween(0, 100),
-            'status' => $this->faker->randomElement(['open', 'pogress', 'done']),
+            'status' => $this->faker->randomElement(['open', 'progress', 'done']),
             'sort_index' => $this->faker->numberBetween(0, 10),
             'assigne_id' => function () {
                 return User::factory()->create()->id;
