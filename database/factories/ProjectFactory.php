@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class ProjectFactory extends Factory
 {
@@ -26,6 +26,7 @@ class ProjectFactory extends Factory
         $finalTitle = rtrim($title, '.');
         return [
             'title' => $finalTitle,
+            'user_id' => User::all()->random()->id,
         ];
     }
 }

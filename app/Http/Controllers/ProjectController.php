@@ -54,6 +54,7 @@ class ProjectController extends Controller
 
         $Project = new Project();
         $Project->title = $request->get('title');
+        $Project->user_id = $request->get('user_id');
         $Project->save();
 
         // return newly created user data
