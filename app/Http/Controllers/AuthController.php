@@ -37,17 +37,29 @@ class AuthController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required'
+            'password' => 'required',
+            'character_id' => 'nullable'
         ]);
 
         // create new user account
         $User = new User();
         $User->name = $request->get('name');
         $User->email = $request->get('email');
+        $User->character_id = null;
         $User->password = Hash::make($request->get('password'));
         $User->save();
 
         // return newly created user data
         return response()->json($User);
+    }
+
+    /**
+     * Returns the logged in users data
+     */
+    public function me()
+    {
+        return response()->json([
+            'user' => Auth::user(),
+        ]);
     }
 }
