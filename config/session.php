@@ -155,7 +155,8 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN', null),
+    'domain' => '.flow_backend.local',
+    // 'domain' => env('SESSION_DOMAIN', null),
 
     /*
     |--------------------------------------------------------------------------
