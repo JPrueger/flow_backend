@@ -12,11 +12,11 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($project_id)
     {
-        $AllTasks = Task::all();
+        $allTasks = Task::query()->where('project_id', $project_id)->orderBy('created_at', 'desc')->get();
 
-        return response()->json($AllTasks);
+        return response()->json($allTasks);
     }
 
     /**
@@ -49,6 +49,7 @@ class TaskController extends Controller
         $Task->description = $request->get('description');
         $Task->storypoints = $request->get('storypoints');
         $Task->status = $request->get('status');
+        $Task->project_id = $request->get('project_id');
         $Task->save();
 
         // return newly created user data

@@ -31,7 +31,7 @@ class AuthController extends Controller
             'email' => ['Email or Password are incorect.']
         ]);
     }
-    
+
     public function register(Request $request)
     {
         $this->validate($request, [
@@ -61,5 +61,12 @@ class AuthController extends Controller
         return response()->json([
             'user' => Auth::user(),
         ]);
+    }
+
+    public function getUserData($user_id)
+    {
+        //$user = Auth::user();
+        $user = User::find($user_id);
+        return response()->json($user);
     }
 }
