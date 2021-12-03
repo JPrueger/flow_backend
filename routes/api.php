@@ -22,19 +22,26 @@ Route::get('/todos', [App\Http\Controllers\TodosController::class, 'index']);
 Route::post('/todos', [App\Http\Controllers\TodosController::class, 'store']);
 
 // register user
-Route::post('/user/register', [App\Http\Controllers\AuthController::class, 'register']);
+Route::post('/user/register', [App\Http\Controllers\AuthController::class, 'register'])->middleware('cors');
 
 // login user
-Route::post('/user/login', [App\Http\Controllers\AuthController::class, 'login']);
+Route::post('/user/login', [App\Http\Controllers\AuthController::class, 'login'])->middleware('cors');
 
 // store Project
-Route::post('/add-project/create', [App\Http\Controllers\ProjectController::class, 'store']);
+Route::post('/add-project/create', [App\Http\Controllers\ProjectController::class, 'store'])->middleware('cors');
 
 // sorting tasks
-Route::post('/sort-task', [App\Http\Controllers\ProjectController::class, 'sort']);
+Route::post('/sort-task', [App\Http\Controllers\ProjectController::class, 'sort'])->middleware('cors');
 
 // get all tasks
 Route::get('/tasks/index/', [App\Http\Controllers\TaskController::class, 'index']);
+
+//list all my projects
+Route::get('/projects/{id}', [App\Http\Controllers\ProjectController::class, 'showMyProjects']);
+
+//update task
+Route::get('/tasks/{id}', [App\Http\Controllers\TaskController::class, 'update']);
+
 
 // create task
 Route::post('/add-task/create', [App\Http\Controllers\TaskController::class, 'store']);

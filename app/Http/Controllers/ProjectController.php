@@ -19,12 +19,15 @@ class ProjectController extends Controller
     }
 
     /**
+     *
+     *
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
+
     }
 
     /**
@@ -39,7 +42,7 @@ class ProjectController extends Controller
         }
         return response()->status(200);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -104,5 +107,12 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function showMyProjects($user_id) {
+
+        $projects = Project::query()->where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
+
+        return response()->json($projects);
     }
 }
