@@ -36,6 +36,10 @@ Route::post('/sort-task', [App\Http\Controllers\ProjectController::class, 'sort'
 // get all tasks
 Route::get('/tasks/index/{id}', [App\Http\Controllers\TaskController::class, 'index']);
 
+//get task details
+Route::get('/task/{id}', [App\Http\Controllers\TaskController::class, 'show']);
+
+
 //list all my projects
 Route::get('/projects/{id}', [App\Http\Controllers\ProjectController::class, 'showMyProjects']);
 
