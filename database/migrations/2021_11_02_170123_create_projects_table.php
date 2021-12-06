@@ -17,10 +17,15 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('title');
 
-            $table->unsignedBigInteger('user_id')->nullable(); 
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->nullable();
-            
+
             $table->timestamps();
+        });
+
+        Schema::create('projects_users_mm', function(Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('project_id');
         });
     }
 
@@ -31,6 +36,7 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('projects_users_mm');
         Schema::dropIfExists('projects');
     }
 }
