@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -68,11 +69,17 @@ class ProjectController extends Controller
 
         $Project = new Project();
         $Project->title = $request->get('title');
-        $Project->user_id = $request->get('user_id');
+        // $Project->user_id = $request->get('user_id');
         $Project->save();
+
+        $userIds = json_decode($request->get('users'));
+        $Project->users()->attach([...$userIds, $request->get('user_id')]);
 
         // return newly created user data
         return response()->json($Project);
+
+        //get all users from this projevt
+        //$project->users();
     }
 
     /**

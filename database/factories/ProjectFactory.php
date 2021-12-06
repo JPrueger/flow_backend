@@ -26,7 +26,6 @@ class ProjectFactory extends Factory
         $finalTitle = rtrim($title, '.');
         return [
             'title' => $finalTitle,
-            'user_id' => User::all()->random()->id,
         ];
     }
 }

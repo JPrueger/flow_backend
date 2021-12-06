@@ -9,7 +9,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'user_id'];
+    protected $fillable = ['title'];
 
     public function users() {
         return $this->belongsToMany(User::class, 'projects_users_mm');
