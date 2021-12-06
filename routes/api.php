@@ -52,7 +52,8 @@ Route::post('/add-task/{id}', [App\Http\Controllers\TaskController::class, 'stor
 // get logged in  user
 Route::middleware(['auth:sanctum'])->get('/user/me', [App\Http\Controllers\AuthController::class, 'me']);
 
+Route::get('/user/all-users', [App\Http\Controllers\UserController::class, 'getAllUsers']);
+
 Route::get('/user/{id}', [App\Http\Controllers\AuthController::class, 'getUserData']);
 
 
-Route::get('/user/all-users', [App\Http\Controllers\UserController::class, 'getAllUsers']);
