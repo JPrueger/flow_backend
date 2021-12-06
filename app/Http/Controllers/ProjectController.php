@@ -37,16 +37,21 @@ class ProjectController extends Controller
      */
     public function sort(Request $request)
     {
+        // dd($request->all());
+        $tasks = collect([]);
         foreach ($request->all() as $index => $task) {
-            $existingTask = Task::find($task['id']);
-            $existingTask->status = $task['status'];
+            // dd($task['id']);
+            $existingTask = Task::findOrFail($task['id']);
+            $existingTask->status = $task['newStatus'];
             $existingTask->sort_index = $index;
             $existingTask->save();
+            $tasks->push($existingTask);
             //Task::where("id", $task['id'])->update(["sort_index" => $index])->save();
             //Task::where("id", $task['id'])->update(["status" => $task['status']]);
         }
+        return response()->json($tasks);
         //return response()->status(200)
-        return response('Success', 200);
+        // return response('Success', 200);
     }
 
     /**
