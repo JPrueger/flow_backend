@@ -69,17 +69,19 @@ class ProjectController extends Controller
 
         $Project = new Project();
         $Project->title = $request->get('title');
-        // $Project->user_id = $request->get('user_id');
+        $Project->user_id = $request->get('user_id');
         $Project->save();
 
         $userIds = json_decode($request->get('users'));
         $Project->users()->attach([...$userIds, $request->get('user_id')]);
 
+        //get all users from this projevt
+//        $users = $Project->users();
+
         // return newly created user data
         return response()->json($Project);
 
-        //get all users from this projevt
-        //$project->users();
+
     }
 
     /**
@@ -132,5 +134,14 @@ class ProjectController extends Controller
         $projects = Project::query()->where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
 
         return response()->json($projects);
+    }
+
+    public function getAllProjectUsers($project_id) {
+        //get all users from this projevt
+        $project = Project::findOrFail($project_id);
+        $users = $project->users()->get();
+
+//        dd($users);
+        return response()->json($users);
     }
 }
