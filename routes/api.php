@@ -58,4 +58,3 @@ Route::get('/user/{id}', [App\Http\Controllers\AuthController::class, 'getUserDa
 
 Route::get('/project-users/{id}', [App\Http\Controllers\ProjectController::class, 'getAllProjectUsers']);
 
-

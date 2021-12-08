@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -50,6 +51,8 @@ class TaskController extends Controller
         $Task->storypoints = $request->get('storypoints');
         $Task->status = $request->get('status');
         $Task->project_id = $request->get('project_id');
+        $Task->assigne_id = $request->get('assigne_id');
+//        $Task->assigne_id = Auth::id();;
         $Task->save();
 
         // return newly created user data
