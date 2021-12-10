@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -70,8 +71,13 @@ class ProjectController extends Controller
         $Project = new Project();
         $Project->title = $request->get('title');
         $Project->save();
-        $userIds = json_decode($request->get('users'));
-        $Project->users()->attach([...$userIds, $request->get('user_id')]);
+
+        if($request->get('users') !== null) {
+            $userIds = json_decode($request->get('users'));
+            $Project->users()->attach([...$userIds, $request->get('user_id')]);
+        } else {
+            $Project->users()->attach($request->get('user_id'));
+        }
 
         return response()->json($Project);
     }
@@ -123,8 +129,7 @@ class ProjectController extends Controller
 
     public function showMyProjects($user_id) {
 
-        $projects = Project::query()->where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
-
+        $projects = User::findOrFail($user_id)->projects()->get();
         return response()->json($projects);
     }
 
@@ -133,7 +138,6 @@ class ProjectController extends Controller
         $project = Project::findOrFail($project_id);
         $users = $project->users()->get();
 
-//        dd($users);
         return response()->json($users);
     }
 }
