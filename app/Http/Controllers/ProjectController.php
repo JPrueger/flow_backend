@@ -69,19 +69,11 @@ class ProjectController extends Controller
 
         $Project = new Project();
         $Project->title = $request->get('title');
-        $Project->user_id = $request->get('user_id');
         $Project->save();
-
         $userIds = json_decode($request->get('users'));
         $Project->users()->attach([...$userIds, $request->get('user_id')]);
 
-        //get all users from this projevt
-//        $users = $Project->users();
-
-        // return newly created user data
         return response()->json($Project);
-
-
     }
 
     /**
