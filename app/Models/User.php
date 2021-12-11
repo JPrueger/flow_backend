@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'character_id',
         'storypoints',
+        'tag_color',
     ];
 
     /**

@@ -32,6 +32,7 @@ class UserFactory extends Factory
             'character_id' => function () {
                 return Character::factory()->create()->id;
             },
+            'tag_color' => $this->faker->randomElement(['#99154E', '#FFB319', '#49A6AA', '#0A474A']),
             'storypoints' => $this->faker->numberBetween(0, 100)
         ];
     }

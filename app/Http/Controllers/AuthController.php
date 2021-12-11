@@ -41,12 +41,20 @@ class AuthController extends Controller
             'character_id' => 'nullable'
         ]);
 
+        $ColourCodes = array(
+            'berry' => '#99154E',
+            'yellow' => '#FFB319',
+            'light-blue-green' => '#49A6AA',
+            'dark-blue-green' => '#0A474A'
+        );
+
         // create new user account
         $User = new User();
         $User->name = $request->get('name');
         $User->email = $request->get('email');
         $User->character_id = null;
         $User->password = Hash::make($request->get('password'));
+        $User->tag_color = $ColourCodes[array_rand($ColourCodes)];
         $User->save();
 
         // return newly created user data
