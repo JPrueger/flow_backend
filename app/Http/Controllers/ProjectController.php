@@ -39,21 +39,30 @@ class ProjectController extends Controller
      */
     public function sort(Request $request)
     {
-        // dd($request->all());
         $tasks = collect([]);
         foreach ($request->all() as $index => $task) {
-            // dd($task['id']);
             $existingTask = Task::findOrFail($task['id']);
+
+            $assignedUser = User::findOrFail($existingTask->assigne_id);
+            $userStorypoints = $assignedUser->storypoints;
+            $taskStorypoints = $existingTask->storypoints;
+
+            if($existingTask->status === 'done' && $task['newStatus'] !== 'done') {
+                //remove storypoints
+                $assignedUser->storypoints = $userStorypoints - $taskStorypoints;
+
+            } else if($existingTask->status !== 'done' && $task['newStatus'] === 'done') {
+                //add storypoints
+                $assignedUser->storypoints = $userStorypoints + $taskStorypoints;
+            }
+
+            $assignedUser->save();
             $existingTask->status = $task['newStatus'];
             $existingTask->sort_index = $index;
             $existingTask->save();
             $tasks->push($existingTask);
-            //Task::where("id", $task['id'])->update(["sort_index" => $index])->save();
-            //Task::where("id", $task['id'])->update(["status" => $task['status']]);
         }
         return response()->json($tasks);
-        //return response()->status(200)
-        // return response('Success', 200);
     }
 
     /**
