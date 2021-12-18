@@ -55,6 +55,7 @@ class AuthController extends Controller
         $User->character_id = null;
         $User->password = Hash::make($request->get('password'));
         $User->tag_color = $ColourCodes[array_rand($ColourCodes)];
+//        $User->storypoints = 0;
         $User->save();
 
         // return newly created user data

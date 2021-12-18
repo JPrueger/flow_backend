@@ -82,6 +82,8 @@ class TaskController extends Controller
     public function edit($id)
     {
         //
+
+
     }
 
     /**
@@ -94,6 +96,24 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         //todo
+
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required',
+            'storypoints' => 'required',
+            'status' => 'required',
+        ]);
+
+        $Task = Task::find($id);
+        $Task->title = $request->get('title');
+        $Task->description = $request->get('description');
+        $Task->storypoints = $request->get('storypoints');
+        $Task->status = $request->get('status');
+        $Task->project_id = $request->get('project_id');
+        $Task->assigne_id = $request->get('assigne_id');
+        $Task->save();
+
+        return response()->json($Task);
     }
 
     /**
@@ -105,5 +125,14 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function updateStoryPoints($taskId) {
+        $task = Task::findOrFail($taskId);
+        $user = User::findOrFail($task->assigne_id);
+        $currentStoryPoints = $user->storypoints;
+        $taskStoryPoints = $task->storypoints;
+        $user->storypoints = $currentStoryPoints + $taskStoryPoints;
+        return response()->json($task);
     }
 }

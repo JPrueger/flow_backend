@@ -39,7 +39,6 @@ Route::get('/tasks/index/{id}', [App\Http\Controllers\TaskController::class, 'in
 //get task details
 Route::get('/task/{id}', [App\Http\Controllers\TaskController::class, 'show']);
 
-
 //list all my projects
 Route::get('/projects/{id}', [App\Http\Controllers\ProjectController::class, 'showMyProjects']);
 
@@ -58,3 +57,4 @@ Route::get('/user/{id}', [App\Http\Controllers\AuthController::class, 'getUserDa
 
 Route::get('/project-users/{id}', [App\Http\Controllers\ProjectController::class, 'getAllProjectUsers']);
 
+Route::get('/updateStoryPoints/{taskId}', [App\Http\Controllers\TaskController::class, 'updateStoryPoints']);
