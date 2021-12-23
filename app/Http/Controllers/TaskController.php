@@ -95,8 +95,6 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //todo
-
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required',

@@ -48,6 +48,9 @@ Route::get('/tasks/{id}', [App\Http\Controllers\TaskController::class, 'update']
 // create task
 Route::post('/add-task/{id}', [App\Http\Controllers\TaskController::class, 'store']);
 
+// update task
+Route::post('/edit-task/{id}', [App\Http\Controllers\TaskController::class, 'update']);
+
 // get logged in  user
 Route::middleware(['auth:sanctum'])->get('/user/me', [App\Http\Controllers\AuthController::class, 'me']);
 
