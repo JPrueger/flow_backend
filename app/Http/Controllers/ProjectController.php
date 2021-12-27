@@ -136,6 +136,11 @@ class ProjectController extends Controller
         //
     }
 
+    public function getProject($project_id) {
+        $project = Project::findOrFail($project_id);
+        return response()->json($project);
+    }
+
     public function showMyProjects($user_id) {
         $projects = User::findOrFail($user_id)->projects()->get();
         return response()->json($projects);
