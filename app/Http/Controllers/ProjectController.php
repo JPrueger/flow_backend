@@ -137,7 +137,6 @@ class ProjectController extends Controller
     }
 
     public function showMyProjects($user_id) {
-
         $projects = User::findOrFail($user_id)->projects()->get();
         return response()->json($projects);
     }
@@ -146,7 +145,12 @@ class ProjectController extends Controller
         //get all users from this projevt
         $project = Project::findOrFail($project_id);
         $users = $project->users()->get();
-
         return response()->json($users);
+    }
+
+    public function getAllProjectTasks($project_id) {
+        //get all tasks from specific project
+        $tasks = Task::query()->where('project_id', $project_id)->get();
+        return response()->json($tasks);
     }
 }

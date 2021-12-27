@@ -60,4 +60,6 @@ Route::get('/user/{id}', [App\Http\Controllers\AuthController::class, 'getUserDa
 
 Route::get('/project-users/{id}', [App\Http\Controllers\ProjectController::class, 'getAllProjectUsers']);
 
+Route::get('/project-tasks/{id}', [App\Http\Controllers\ProjectController::class, 'getAllProjectTasks']);
+
 Route::get('/updateStoryPoints/{taskId}', [App\Http\Controllers\TaskController::class, 'updateStoryPoints']);
