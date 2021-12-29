@@ -20,7 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('tag_color')->nullable();
-            $table->boolean('videoPlayed')->default(0);
+            $table->boolean('level_one_played')->nullable()->default(0);
+            $table->boolean('level_two_played')->nullable()->default(0);
+            $table->boolean('level_three_played')->nullable()->default(0);
             
             $table->unsignedBigInteger('character_id')->nullable();
             $table->foreign('character_id')->references('id')->on('characters');

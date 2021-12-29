@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function getAllUsers() {
-        $users = User::all(['id', 'name', 'email', 'tag_color', 'videoPlayed']);
+        $users = User::all(['id', 'name', 'email', 'tag_color', 'level_one_played', 'level_two_played', 'level_three_played']);
         return response()->json($users);
     }
 
@@ -25,12 +25,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'videoPlayed' => 'required',
-        ]);
+        // $this->validate($request, [
+        //     'levelOnePlayed' => 'required',
+        // ]);
 
         $User = User::find($id);
-        $User->videoPlayed = $request->get('videoPlayed');
+        $User->level_one_played = $request->get('levelOnePlayed');
+        $User->level_two_played = $request->get('levelTwoPlayed');
+        $User->level_three_played = $request->get('levelThreePlayed');
         $User->save();
 
         return response()->json($User);

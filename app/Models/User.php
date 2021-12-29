@@ -24,7 +24,9 @@ class User extends Authenticatable
         'character_id',
         'storypoints',
         'tag_color',
-        'videoPlayed',
+        'level_one_played',
+        'level_two_played',
+        'level_three_played',
     ];
 
     /**
