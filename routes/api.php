@@ -51,6 +51,9 @@ Route::post('/add-task/{id}', [App\Http\Controllers\TaskController::class, 'stor
 // update task
 Route::post('/edit-task/{id}', [App\Http\Controllers\TaskController::class, 'update']);
 
+// update profile when video has been played already
+Route::post('/user/update/{id}', [App\Http\Controllers\UserController::class, 'update']);
+
 // get logged in  user
 Route::middleware(['auth:sanctum'])->get('/user/me', [App\Http\Controllers\AuthController::class, 'me']);
 
