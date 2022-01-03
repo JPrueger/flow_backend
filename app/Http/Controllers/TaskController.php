@@ -123,6 +123,10 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
+        $Task = Task::find($id);
+        $Task->delete();
+
+        return response()->json($Task);
     }
 
     public function updateStoryPoints($taskId) {

@@ -48,6 +48,9 @@ Route::get('/tasks/{id}', [App\Http\Controllers\TaskController::class, 'update']
 // create task
 Route::post('/add-task/{id}', [App\Http\Controllers\TaskController::class, 'store']);
 
+//delete task
+Route::delete('/delete-task/{id}', [App\Http\Controllers\TaskController::class, 'destroy']);
+
 // update task
 Route::post('/edit-task/{id}', [App\Http\Controllers\TaskController::class, 'update']);
 
