@@ -30,6 +30,9 @@ Route::post('/user/login', [App\Http\Controllers\AuthController::class, 'login']
 // store Project
 Route::post('/add-project/create', [App\Http\Controllers\ProjectController::class, 'store']);
 
+//delete Project
+Route::delete('/delete-project/{id}', [App\Http\Controllers\ProjectController::class, 'destroy']);
+
 // sorting tasks
 Route::post('/sort-task', [App\Http\Controllers\ProjectController::class, 'sort']);
 
