@@ -38,21 +38,26 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
-            'character_id' => 'nullable'
+            'characterId' => 'required'
         ]);
 
         $ColourCodes = array(
             'berry' => '#99154E',
             'yellow' => '#FFB319',
             'light-blue-green' => '#49A6AA',
-            'dark-blue-green' => '#0A474A'
+            'dark-blue-green' => '#0A474A',
+            'purple' => '#4A0049',
+            'dark-blue' => '#000E41',
+            'red-brown' => '#7E1000',
+            'grey' => '#7E1000'
         );
 
         // create new user account
         $User = new User();
         $User->name = $request->get('name');
         $User->email = $request->get('email');
-        $User->character_id = null;
+        $User->character_id = $request->get('characterId');;
+        $User->character_name = $request->get('characterName');;
         $User->password = Hash::make($request->get('password'));
         $User->tag_color = $ColourCodes[array_rand($ColourCodes)];
         $User->save();

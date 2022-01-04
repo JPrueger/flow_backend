@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'character_id',
+        'character_name',
         'storypoints',
         'tag_color',
         'level_one_played',
@@ -37,15 +38,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
 
     public function character() {
