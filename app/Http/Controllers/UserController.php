@@ -44,12 +44,10 @@ class UserController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users',
             'password' => 'required',
         ]);
 
         $User->name = $request->get('name');
-        $User->email = $request->get('email');
         $User->password = Hash::make($request->get('password'));
         $User->save();
 
