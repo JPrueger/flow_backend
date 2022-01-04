@@ -27,6 +27,10 @@ Route::post('/user/register', [App\Http\Controllers\AuthController::class, 'regi
 // login user
 Route::post('/user/login', [App\Http\Controllers\AuthController::class, 'login']);
 
+//edit user
+Route::post('/user/edit/{id}', [App\Http\Controllers\UserController::class, 'editUser']);
+
+
 // store Project
 Route::post('/add-project/create', [App\Http\Controllers\ProjectController::class, 'store']);
 

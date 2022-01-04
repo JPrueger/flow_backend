@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -36,5 +37,22 @@ class UserController extends Controller
         $User->save();
 
         return response()->json($User);
-    } 
+    }
+
+    public function editUser(Request $request, $id) {
+        $User = User::find($id);
+
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+        ]);
+
+        $User->name = $request->get('name');
+        $User->email = $request->get('email');
+        $User->password = Hash::make($request->get('password'));
+        $User->save();
+
+        return response()->json($User);
+    }
 }
