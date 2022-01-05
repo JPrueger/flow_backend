@@ -11,28 +11,6 @@ use Illuminate\Support\Facades\Auth;
 class ProjectController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     *
-     *
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -42,17 +20,21 @@ class ProjectController extends Controller
         $tasks = collect([]);
         foreach ($request->all() as $index => $task) {
             $existingTask = Task::findOrFail($task['id']);
-
             $assignedUser = User::findOrFail($existingTask->assigne_id);
+
             $userStorypoints = $assignedUser->storypoints;
             $taskStorypoints = $existingTask->storypoints;
 
             if($existingTask->status === 'done' && $task['newStatus'] !== 'done') {
-                //remove storypoints
+                /**
+                 * Removes storypoints
+                 */
                 $assignedUser->storypoints = $userStorypoints - $taskStorypoints;
 
             } else if($existingTask->status !== 'done' && $task['newStatus'] === 'done') {
-                //add storypoints
+                /**
+                 * Adds storypoints
+                 */
                 $assignedUser->storypoints = $userStorypoints + $taskStorypoints;
             }
 
@@ -62,6 +44,10 @@ class ProjectController extends Controller
             $existingTask->save();
             $tasks->push($existingTask);
         }
+
+        /**
+         * Returns tasks as json.
+         */
         return response()->json($tasks);
     }
 
@@ -73,14 +59,23 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        /**
+         * Validates request.
+         */
         $this->validate($request, [
             'title' => 'required',
         ]);
 
+        /**
+         * Creates new project.
+         */
         $Project = new Project();
         $Project->title = $request->get('title');
         $Project->save();
 
+        /**
+         * Attachess either only logged in user to project, or chosen assignees.
+         */
         if($request->get('users') !== null) {
             $userIds = json_decode($request->get('users'));
             $Project->users()->attach([...$userIds, $request->get('user_id')]);
@@ -88,41 +83,10 @@ class ProjectController extends Controller
             $Project->users()->attach($request->get('user_id'));
         }
 
+        /**
+         * Returns newly created project as json.
+         */
         return response()->json($Project);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -139,25 +103,35 @@ class ProjectController extends Controller
         return response()->json($project);
     }
 
+    /**
+     * Gets project according to ID.
+     */
     public function getProject($project_id) {
         $project = Project::findOrFail($project_id);
         return response()->json($project);
     }
 
+    /**
+     * Shows projects according to logged in user.
+     */
     public function showMyProjects($user_id) {
         $projects = User::findOrFail($user_id)->projects()->get();
         return response()->json($projects);
     }
 
+    /**
+     * Gets all projects according to ID.
+     */
     public function getAllProjectUsers($project_id) {
-        //get all users from this projevt
         $project = Project::findOrFail($project_id);
         $users = $project->users()->get();
         return response()->json($users);
     }
 
+    /**
+     * Gets all task according to project ID.
+     */
     public function getAllProjectTasks($project_id) {
-        //get all tasks from specific project
         $tasks = Task::query()->where('project_id', $project_id)->get();
         return response()->json($tasks);
     }

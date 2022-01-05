@@ -24,15 +24,6 @@ class CreateCharactersTable extends Migration
             
             $table->unsignedBigInteger('characterlevel_id');
             $table->foreign('characterlevel_id')->references('id')->on('characterlevels');
-
-            // $table->unsignedBigInteger('characterLevel_id');
-            // $table->foreign('characterLevel_id')->references('id')->on('characterLevels');
-            
-            // $table->unsignedBigInteger('user_id')->nullable();
-            // $table->foreign('user_id')->references('id')->on('users');
-
-            // $table->unsignedBigInteger('user_id')->nullable();
-            // $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,18 +17,7 @@ class TaskController extends Controller
     public function index($project_id)
     {
         $allTasks = Task::query()->where('project_id', $project_id)->orderBy('created_at', 'desc')->get();
-
         return response()->json($allTasks);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -38,6 +28,9 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        /**
+         * Validates request.
+         */
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required',
@@ -45,6 +38,9 @@ class TaskController extends Controller
             'status' => 'required',
         ]);
 
+        /**
+         * Creates new task.
+         */
         $Task = new Task();
         $Task->title = $request->get('title');
         $Task->description = $request->get('description');
@@ -52,10 +48,11 @@ class TaskController extends Controller
         $Task->status = $request->get('status');
         $Task->project_id = $request->get('project_id');
         $Task->assigne_id = $request->get('assigne_id');
-//        $Task->assigne_id = Auth::id();;
         $Task->save();
 
-        // return newly created user data
+        /**
+         * Returns newly created task as json.
+         */
         return response()->json($Task);
     }
 
@@ -68,22 +65,7 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
-
-        // return task details
         return response()->json($task);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-
-
     }
 
     /**
@@ -95,6 +77,9 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
+        /**
+         * Validates request.
+         */
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required',
@@ -102,6 +87,9 @@ class TaskController extends Controller
             'status' => 'required',
         ]);
 
+        /**
+         * Updates task according to ID.
+         */
         $Task = Task::find($id);
         $Task->title = $request->get('title');
         $Task->description = $request->get('description');
@@ -111,6 +99,9 @@ class TaskController extends Controller
         $Task->assigne_id = $request->get('assigne_id');
         $Task->save();
 
+        /**
+         * Returns updated task as json.
+         */
         return response()->json($Task);
     }
 
@@ -122,13 +113,14 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
         $Task = Task::find($id);
         $Task->delete();
-
         return response()->json($Task);
     }
 
+    /**
+     * Updates storypoints according to task ID.
+     */
     public function updateStoryPoints($taskId) {
         $task = Task::findOrFail($taskId);
         $user = User::findOrFail($task->assigne_id);

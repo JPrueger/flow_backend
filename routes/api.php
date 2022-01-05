@@ -18,63 +18,116 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/todos', [App\Http\Controllers\TodosController::class, 'index']);
-Route::post('/todos', [App\Http\Controllers\TodosController::class, 'store']);
 
-// register user
+// #################### USER ####################
+
+/**
+ * Register user.
+ */
 Route::post('/user/register', [App\Http\Controllers\AuthController::class, 'register']);
 
-// login user
+/**
+ * Login user.
+ */
 Route::post('/user/login', [App\Http\Controllers\AuthController::class, 'login']);
 
-//edit user
+/**
+ * Edit user.
+ */
 Route::post('/user/edit/{id}', [App\Http\Controllers\UserController::class, 'editUser']);
 
-
-// store Project
-Route::post('/add-project/create', [App\Http\Controllers\ProjectController::class, 'store']);
-
-//delete Project
-Route::delete('/delete-project/{id}', [App\Http\Controllers\ProjectController::class, 'destroy']);
-
-// sorting tasks
-Route::post('/sort-task', [App\Http\Controllers\ProjectController::class, 'sort']);
-
-// get all tasks
-Route::get('/tasks/index/{id}', [App\Http\Controllers\TaskController::class, 'index']);
-
-//get task details
-Route::get('/task/{id}', [App\Http\Controllers\TaskController::class, 'show']);
-
-//list all my projects
-Route::get('/projects/{id}', [App\Http\Controllers\ProjectController::class, 'showMyProjects']);
-
-//update task
-Route::get('/tasks/{id}', [App\Http\Controllers\TaskController::class, 'update']);
-
-// create task
-Route::post('/add-task/{id}', [App\Http\Controllers\TaskController::class, 'store']);
-
-//delete task
-Route::delete('/delete-task/{id}', [App\Http\Controllers\TaskController::class, 'destroy']);
-
-// update task
-Route::post('/edit-task/{id}', [App\Http\Controllers\TaskController::class, 'update']);
-
-// update profile when video has been played already
+/**
+ * Updates user when next character level video has already been played.
+ */
 Route::post('/user/update/{id}', [App\Http\Controllers\UserController::class, 'update']);
 
-// get logged in  user
+/**
+ * Gets logged in user, also uses middleware.
+ */
 Route::middleware(['auth:sanctum'])->get('/user/me', [App\Http\Controllers\AuthController::class, 'me']);
 
+/**
+ * Gets all users.
+ */
 Route::get('/user/all-users', [App\Http\Controllers\UserController::class, 'getAllUsers']);
 
+/**
+ * Gets user according to ID.
+ */
 Route::get('/user/{id}', [App\Http\Controllers\AuthController::class, 'getUserData']);
 
+
+// #################### PROJECT ####################
+
+/**
+ * Store project.
+ */
+Route::post('/add-project/create', [App\Http\Controllers\ProjectController::class, 'store']);
+
+/**
+ * Delete project.
+ */
+Route::delete('/delete-project/{id}', [App\Http\Controllers\ProjectController::class, 'destroy']);
+
+/**
+ * Lists all projects according to ID.
+ */
+Route::get('/projects/{id}', [App\Http\Controllers\ProjectController::class, 'showMyProjects']);
+
+/**
+ * Gets all projects according to user ID.
+ */
 Route::get('/project-users/{id}', [App\Http\Controllers\ProjectController::class, 'getAllProjectUsers']);
 
+/**
+ * Gets all tasks according to user ID.
+ */
 Route::get('/project-tasks/{id}', [App\Http\Controllers\ProjectController::class, 'getAllProjectTasks']);
 
-Route::get('/updateStoryPoints/{taskId}', [App\Http\Controllers\TaskController::class, 'updateStoryPoints']);
-
+/**
+ * Gets project according to ID.
+ */
 Route::get('/project-details/{id}', [App\Http\Controllers\ProjectController::class, 'getProject']);
+
+
+// #################### TASK ####################
+
+/**
+ * Sorting tasks.
+ */
+Route::post('/sort-task', [App\Http\Controllers\ProjectController::class, 'sort']);
+
+/**
+ * Gets all tasks.
+ */
+Route::get('/tasks/index/{id}', [App\Http\Controllers\TaskController::class, 'index']);
+
+/**
+ * Gets task according to ID.
+ */
+Route::get('/task/{id}', [App\Http\Controllers\TaskController::class, 'show']);
+
+/**
+ * Updates task according to ID.
+ */
+Route::get('/tasks/{id}', [App\Http\Controllers\TaskController::class, 'update']);
+
+/**
+ * Creates task according to ID.
+ */
+Route::post('/add-task/{id}', [App\Http\Controllers\TaskController::class, 'store']);
+
+/**
+ * Deletes task according to ID.
+ */
+Route::delete('/delete-task/{id}', [App\Http\Controllers\TaskController::class, 'destroy']);
+
+/**
+ * Updates task according to ID.
+ */
+Route::post('/edit-task/{id}', [App\Http\Controllers\TaskController::class, 'update']);
+
+/**
+ * Updates storypoints according to task ID.
+ */
+Route::get('/updateStoryPoints/{taskId}', [App\Http\Controllers\TaskController::class, 'updateStoryPoints']);

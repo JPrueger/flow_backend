@@ -12,15 +12,19 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+        /**
+         * Validates request.
+         */
         $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
+        /**
+         * Creates token.
+         */
         if (Auth::attempt($request->only('email', 'password'))) {
-
             $tokenObj = Auth::user()->createToken('auth');
-
             return response()->json([
                 'token' => $tokenObj->plainTextToken,
                 'user' => Auth::user(),
@@ -34,6 +38,9 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        /**
+         * Validates request.
+         */
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -41,6 +48,9 @@ class AuthController extends Controller
             'characterId' => 'required'
         ]);
 
+        /**
+         * Provides different colours to randomly add them to each user.
+         */
         $ColourCodes = array(
             'berry' => '#99154E',
             'yellow' => '#FFB319',
@@ -52,7 +62,9 @@ class AuthController extends Controller
             'grey' => '#7E1000'
         );
 
-        // create new user account
+        /**
+         * Creates new user.
+         */
         $User = new User();
         $User->name = $request->get('name');
         $User->email = $request->get('email');
@@ -62,12 +74,14 @@ class AuthController extends Controller
         $User->tag_color = $ColourCodes[array_rand($ColourCodes)];
         $User->save();
 
-        // return newly created user data
+        /**
+         * Returns newly created user data as json.
+         */
         return response()->json($User);
     }
 
     /**
-     * Returns the logged in users data
+     * Returns the logged in user.
      */
     public function me()
     {
@@ -76,6 +90,9 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Gets the current user.
+     */
     public function getUserData($user_id)
     {
         $user = User::find($user_id);
