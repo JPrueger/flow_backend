@@ -65,6 +65,11 @@ Route::get('/user/{id}', [App\Http\Controllers\AuthController::class, 'getUserDa
 Route::post('/add-project/create', [App\Http\Controllers\ProjectController::class, 'store']);
 
 /**
+ * Update project.
+ */
+Route::post('/project/edit/{id}', [App\Http\Controllers\ProjectController::class, 'update']);
+
+/**
  * Delete project.
  */
 Route::delete('/delete-project/{id}', [App\Http\Controllers\ProjectController::class, 'destroy']);

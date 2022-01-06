@@ -89,6 +89,26 @@ class ProjectController extends Controller
         return response()->json($Project);
     }
 
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'title' => 'required',
+        ]);
+
+        $Project = Project::findOrFail($id);
+        $Project->title = $request->get('title');
+        $Project->save();
+
+        if($request->get('users') !== null) {
+            $userIds = json_decode($request->get('users'));
+            $Project->users()->attach([...$userIds, $request->get('user_id')]);
+        } else {
+            $Project->users()->attach($request->get('user_id'));
+        }
+
+        return response()->json($Project);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
