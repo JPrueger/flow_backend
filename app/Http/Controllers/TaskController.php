@@ -33,7 +33,7 @@ class TaskController extends Controller
          */
         $this->validate($request, [
             'title' => 'required',
-            'description' => 'required',
+            'description' => 'required|max:500',
             'storypoints' => 'required',
             'status' => 'required',
         ]);
@@ -82,7 +82,7 @@ class TaskController extends Controller
          */
         $this->validate($request, [
             'title' => 'required',
-            'description' => 'required',
+            'description' => 'required|max:500',
             'storypoints' => 'required',
             'status' => 'required',
         ]);
