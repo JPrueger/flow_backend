@@ -99,12 +99,8 @@ class ProjectController extends Controller
         $Project->title = $request->get('title');
         $Project->save();
 
-        if($request->get('users') !== null) {
-            $userIds = json_decode($request->get('users'));
-            $Project->users()->attach([...$userIds, $request->get('user_id')]);
-        } else {
-            $Project->users()->attach($request->get('user_id'));
-        }
+        $userIds = json_decode($request->get('users'));
+        $Project->users()->sync([...$userIds, $request->get('user_id')]);
 
         return response()->json($Project);
     }
